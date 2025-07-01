@@ -16,3 +16,7 @@ data_*/
 mono_crash.*.json
 
 addons/deers_time_plugin/time_save.tres
+project.godot
+icon.svg.import
+icon.svg
+.gitattributes
