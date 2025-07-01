@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bfaw44u66rpjd"]
+
+[ext_resource type="Script" uid="uid://c1l4qe3k38wl2" path="res://addons/deers_time_plugin/resource/time_save.gd" id="1_fcpxd"]
+
+[resource]
+script = ExtResource("1_fcpxd")
+time = 1220.33
+use_time = 16462.8
+open_time = 22795.5
