@@ -70,6 +70,10 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kbwm6")
 script = ExtResource("1_y55xf")
 
+[node name="StopTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+
 [node name="OpenTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 autostart = true
@@ -90,9 +94,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="ProjectVBoxContainer"]
-unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -160,8 +161,8 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "点击按钮以查看/收起详细时间记录"
-text = ">"
+text = "<"
 
+[connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
 [connection signal="pressed" from="ProjectVBoxContainer/Button" to="." method="_on_button_pressed"]
