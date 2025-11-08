@@ -1,6 +1,10 @@
 @tool
 extends PanelContainer
 
+const POMODORO_CLOCK = preload("uid://cfxr2nbwski5")
+const LEFT_EXPAND = preload("uid://ci7wvn2ag8orv")
+const RIGHT_EXPAND = preload("uid://b5heotoqr71ws")
+
 # TODO 倒计时面板 ===============>变 量<===============
 #region 变量
 var open_project_time_label: Label
@@ -9,6 +13,7 @@ var un_use_progress_bar: ProgressBar
 var project_v_box_container: HBoxContainer
 var hide_and_show_button: Button
 
+var current_clock : PomodoroClock
 var is_not_stop : bool = true
 
 var h : int
@@ -90,18 +95,19 @@ func _on_open_timer_timeout() -> void:
 
 func _on_button_pressed() -> void:
 	var tween : Tween
-	if hide_and_show_button.text == "<":
+	if hide_and_show_button.icon == RIGHT_EXPAND:
 		for i in project_v_box_container.get_children():
 			if i is Label: continue
 			if i is Button: continue
+			if i is PomodoroClock: continue
 			tween = create_tween()
 			tween.tween_property(i, "modulate:a", 0, .1)
 			await tween.finished
 			i.hide()
 		tween = create_tween()
 		tween.tween_property(self, "custom_minimum_size:x", 0, .1)
-		hide_and_show_button.text = ">"
-	elif hide_and_show_button.text == ">":
+		hide_and_show_button.icon = LEFT_EXPAND
+	elif hide_and_show_button.icon == LEFT_EXPAND:
 		tween = create_tween()
 		tween.tween_property(self, "custom_minimum_size:x", 0, .1)
 		await tween.finished
@@ -111,5 +117,14 @@ func _on_button_pressed() -> void:
 			tween = create_tween()
 			tween.tween_property(i, "modulate:a", 1, .1)
 			await tween.finished
-		hide_and_show_button.text = "<"
+		hide_and_show_button.icon = RIGHT_EXPAND
 #endregion
+
+
+func _on_add_timer_button_pressed() -> void:
+	if current_clock:
+		current_clock.timer_cycle += 1
+		return
+	current_clock = POMODORO_CLOCK.instantiate()
+	project_v_box_container.add_child(current_clock)
+	current_clock._init_clock(25, 5)

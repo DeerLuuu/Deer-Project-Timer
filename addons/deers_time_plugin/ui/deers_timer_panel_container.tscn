@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://dn43a3o2p7r30"]
+[gd_scene load_steps=15 format=3 uid="uid://dn43a3o2p7r30"]
 
 [ext_resource type="Script" uid="uid://b83bhlv50qfco" path="res://addons/deers_time_plugin/ui/deers_timer_panel_container.gd" id="1_y55xf"]
+[ext_resource type="Texture2D" uid="uid://b5heotoqr71ws" path="res://addons/deers_time_plugin/icon/right-expand.svg" id="2_kbwm6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kbwm6"]
 
@@ -22,9 +23,8 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4phol"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_bottom = 2.0
+content_margin_left = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(5.0056e-06, 0.702134, 0.561252, 1)
 corner_radius_top_left = 16
 corner_radius_bottom_left = 16
@@ -46,9 +46,10 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwfud"]
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(1, 0.324471, 0.403829, 1)
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -139,13 +140,15 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
-text = "<"
+icon = ExtResource("2_kbwm6")
+icon_alignment = 1
 
 [node name="AddTimerButton" type="Button" parent="ProjectVBoxContainer"]
 unique_name_in_owner = true
@@ -153,6 +156,7 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
@@ -164,3 +168,4 @@ text = "+"
 [connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
 [connection signal="pressed" from="ProjectVBoxContainer/HideAndShowButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ProjectVBoxContainer/AddTimerButton" to="." method="_on_add_timer_button_pressed"]
