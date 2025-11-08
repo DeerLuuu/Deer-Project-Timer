@@ -127,4 +127,4 @@ func _on_add_timer_button_pressed() -> void:
 		return
 	current_clock = POMODORO_CLOCK.instantiate()
 	project_v_box_container.add_child(current_clock)
-	current_clock._init_clock(25, 5)
+	current_clock._init_clock(25 * 60, 5 * 60)
