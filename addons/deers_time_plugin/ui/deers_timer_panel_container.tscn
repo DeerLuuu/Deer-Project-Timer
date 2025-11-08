@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn43a3o2p7r30"]
+[gd_scene load_steps=14 format=3 uid="uid://dn43a3o2p7r30"]
 
 [ext_resource type="Script" uid="uid://b83bhlv50qfco" path="res://addons/deers_time_plugin/ui/deers_timer_panel_container.gd" id="1_y55xf"]
 
@@ -54,6 +54,18 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 anti_aliasing_size = 10.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sitmp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1akak"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpklm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76nkv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oeh08"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_torjw"]
+
 [node name="DeersTimerPanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(500, 0)
 anchors_preset = 8
@@ -97,12 +109,14 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_crin8")
 
 [node name="UseProgressBar" type="ProgressBar" parent="ProjectVBoxContainer/PanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 36)
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_63rm1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4phol")
 value = 50.0
@@ -110,59 +124,43 @@ show_percentage = false
 
 [node name="UnUseProgressBar" type="ProgressBar" parent="ProjectVBoxContainer/PanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 36)
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_crin8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kwfud")
 value = 50.0
 fill_mode = 1
 show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ProjectVBoxContainer/PanelContainer/UnUseProgressBar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = -11.5
-offset_right = 110.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="UseProjectTimeLabel" type="Label" parent="ProjectVBoxContainer/PanelContainer/UnUseProgressBar/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(125, 0)
-layout_mode = 2
-text = "23:59:15"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label" type="Label" parent="ProjectVBoxContainer/PanelContainer/UnUseProgressBar/HBoxContainer"]
-layout_mode = 2
-text = "|"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UnUseProjectTimeLabel" type="Label" parent="ProjectVBoxContainer/PanelContainer/UnUseProgressBar/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(125, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "23 : 59 : 15"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="ProjectVBoxContainer"]
+[node name="HideAndShowButton" type="Button" parent="ProjectVBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
 text = "<"
+
+[node name="AddTimerButton" type="Button" parent="ProjectVBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
+text = "+"
 
 [connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
-[connection signal="pressed" from="ProjectVBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ProjectVBoxContainer/HideAndShowButton" to="." method="_on_button_pressed"]

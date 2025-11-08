@@ -4,11 +4,10 @@ extends PanelContainer
 # TODO 倒计时面板 ===============>变 量<===============
 #region 变量
 var open_project_time_label: Label
-var use_project_time_label: Label
 var use_progress_bar: ProgressBar
-var un_use_project_time_label: Label
 var un_use_progress_bar: ProgressBar
 var project_v_box_container: HBoxContainer
+var hide_and_show_button: Button
 
 var is_not_stop : bool = true
 
@@ -32,10 +31,9 @@ func _ready() -> void:
 	project_v_box_container = %ProjectVBoxContainer
 
 	open_project_time_label = %OpenProjectTimeLabel
-	use_project_time_label = %UseProjectTimeLabel
 	use_progress_bar = %UseProgressBar
-	un_use_project_time_label = %UnUseProjectTimeLabel
 	un_use_progress_bar = %UnUseProgressBar
+	hide_and_show_button = %HideAndShowButton
 
 	if FileAccess.file_exists("res://addons/deers_time_plugin/time_save.tres"):
 		var save : TimeSave = load("res://addons/deers_time_plugin/time_save.tres") as TimeSave
@@ -74,28 +72,27 @@ func _on_open_timer_timeout() -> void:
 		int(open_time / 60) % 60,
 		int(open_time) - (int(open_time / 3600) * 3600 + int(open_time / 60) % 60 * 60)
 	]
-	use_project_time_label.text = "%s : %s : %s" % \
+	project_v_box_container.tooltip_text = "有效项目时长：%s : %s : %s" % \
 	[
 		int(use_time / 3600),
 		int(use_time / 60) % 60,
 		int(use_time) - (int(use_time / 3600) * 3600 + int(use_time / 60) % 60 * 60)
-	]
-	use_progress_bar.max_value = open_time
-	use_progress_bar.value = use_time
-
-	un_use_project_time_label.text = "%s : %s : %s" % \
+	] + "\n" + "无效项目时长：%s : %s : %s" % \
 	[
 		int((open_time - use_time) / 3600),
 		int((open_time - use_time) / 60) % 60,
 		int((open_time - use_time)) - (int((open_time - use_time) / 3600) * 3600 + int((open_time - use_time) / 60) % 60 * 60)
 	]
+	use_progress_bar.max_value = open_time
+	use_progress_bar.value = use_time
 	un_use_progress_bar.max_value = open_time
 	un_use_progress_bar.value = open_time - use_time
 
 func _on_button_pressed() -> void:
 	var tween : Tween
-	if %Button.text == "<":
+	if hide_and_show_button.text == "<":
 		for i in project_v_box_container.get_children():
+			if i is Label: continue
 			if i is Button: continue
 			tween = create_tween()
 			tween.tween_property(i, "modulate:a", 0, .1)
@@ -103,8 +100,8 @@ func _on_button_pressed() -> void:
 			i.hide()
 		tween = create_tween()
 		tween.tween_property(self, "custom_minimum_size:x", 0, .1)
-		%Button.text = ">"
-	elif %Button.text == ">":
+		hide_and_show_button.text = ">"
+	elif hide_and_show_button.text == ">":
 		tween = create_tween()
 		tween.tween_property(self, "custom_minimum_size:x", 0, .1)
 		await tween.finished
@@ -114,5 +111,5 @@ func _on_button_pressed() -> void:
 			tween = create_tween()
 			tween.tween_property(i, "modulate:a", 1, .1)
 			await tween.finished
-		%Button.text = "<"
+		hide_and_show_button.text = "<"
 #endregion
