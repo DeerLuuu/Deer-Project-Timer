@@ -1,17 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfxr2nbwski5"]
+[gd_scene load_steps=8 format=3 uid="uid://cfxr2nbwski5"]
 
 [ext_resource type="Script" uid="uid://dnsrgp2y1q2o3" path="res://addons/deers_time_plugin/ui/pomodoro_clock.gd" id="1_52i2r"]
 [ext_resource type="Texture2D" uid="uid://c8q3k65oqji0v" path="res://addons/deers_time_plugin/icon/moon.svg" id="2_cu7ur"]
+[ext_resource type="Shader" uid="uid://be1d1dsek53d" path="res://addons/deers_time_plugin/shader/black_to_white.gdshader" id="2_u04sj"]
 [ext_resource type="Texture2D" uid="uid://qomyfusdjymo" path="res://addons/deers_time_plugin/icon/sun.svg" id="3_u04sj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u04sj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cu7ur"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsx0w"]
+shader = ExtResource("2_u04sj")
+
 [node name="PomodoroClock" type="PanelContainer"]
 custom_minimum_size = Vector2(72, 36)
-offset_right = 36.0
+offset_right = 72.0
 offset_bottom = 36.0
+tooltip_text = "剩余循环：1
+当前状态：工作"
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u04sj")
 script = ExtResource("1_52i2r")
 
@@ -31,7 +37,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Sun" type="TextureRect" parent="HBoxContainer/PanelContainer/Control"]
-modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_nsx0w")
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 0
 offset_right = 36.0
@@ -45,7 +51,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Moon" type="TextureRect" parent="HBoxContainer/PanelContainer/Control2"]
-modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_nsx0w")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,6 +70,7 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+text = "0s"
 horizontal_alignment = 1
 vertical_alignment = 1
 

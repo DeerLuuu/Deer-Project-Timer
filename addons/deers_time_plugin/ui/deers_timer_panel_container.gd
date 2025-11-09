@@ -120,7 +120,6 @@ func _on_button_pressed() -> void:
 		hide_and_show_button.icon = RIGHT_EXPAND
 #endregion
 
-
 func _on_add_timer_button_pressed() -> void:
 	if current_clock:
 		current_clock.timer_cycle += 1
@@ -128,3 +127,13 @@ func _on_add_timer_button_pressed() -> void:
 	current_clock = POMODORO_CLOCK.instantiate()
 	project_v_box_container.add_child(current_clock)
 	current_clock._init_clock(25 * 60, 5 * 60)
+	%SubTimerButton.show()
+
+func _on_sub_timer_button_pressed() -> void:
+	if current_clock:
+		if current_clock.timer_cycle - 1 == 0: %SubTimerButton.hide()
+		current_clock.timer_cycle -= 1
+		return
+
+func _on_project_v_box_container_child_exiting_tree(node: Node) -> void:
+	if node is PomodoroClock: %SubTimerButton.hide()

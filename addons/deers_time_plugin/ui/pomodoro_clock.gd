@@ -5,7 +5,11 @@ class_name PomodoroClock extends PanelContainer
 @onready var break_clock_timer: Timer = %BreakClockTimer
 var pomodoro_time : float
 var break_time : float
-var timer_cycle : int = 1
+var timer_cycle : int = 1:
+	set(v):
+		timer_cycle = v
+		if timer_cycle == 0:
+			queue_free()
 @onready var control: Control = $HBoxContainer/PanelContainer/Control
 @onready var control_2: Control = $HBoxContainer/PanelContainer/Control2
 @onready var label: Label = $HBoxContainer/Label
@@ -33,9 +37,6 @@ func _physics_process(_delta: float) -> void:
 
 func _on_pomodoro_clock_timer_timeout() -> void:
 	timer_cycle -= 1
-	if timer_cycle == 0:
-		queue_free()
-		return
 	break_clock_timer.start(break_time)
 
 func _on_break_clock_timer_timeout() -> void:

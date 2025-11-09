@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dn43a3o2p7r30"]
+[gd_scene load_steps=22 format=3 uid="uid://dn43a3o2p7r30"]
 
 [ext_resource type="Script" uid="uid://b83bhlv50qfco" path="res://addons/deers_time_plugin/ui/deers_timer_panel_container.gd" id="1_y55xf"]
 [ext_resource type="Texture2D" uid="uid://b5heotoqr71ws" path="res://addons/deers_time_plugin/icon/right-expand.svg" id="2_kbwm6"]
+[ext_resource type="Shader" uid="uid://be1d1dsek53d" path="res://addons/deers_time_plugin/shader/black_to_white.gdshader" id="2_sitmp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kbwm6"]
 
@@ -23,8 +24,6 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4phol"]
-content_margin_left = 4.0
-content_margin_bottom = 4.0
 bg_color = Color(5.0056e-06, 0.702134, 0.561252, 1)
 corner_radius_top_left = 16
 corner_radius_bottom_left = 16
@@ -46,24 +45,42 @@ expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwfud"]
-content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
-content_margin_bottom = 4.0
 bg_color = Color(1, 0.324471, 0.403829, 1)
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 anti_aliasing_size = 10.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1akak"]
+shader = ExtResource("2_sitmp")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sitmp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3bha"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1akak"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpklm"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1g725"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sitmp"]
+bg_color = Color(0.4700758, 0.47007585, 0.47007567, 0)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(1, 1, 1, 0.23529412)
+shadow_size = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ve8gc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_76nkv"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2yu64"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oeh08"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4aben"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_torjw"]
 
@@ -96,6 +113,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+theme_override_constants/separation = 8
 
 [node name="OpenProjectTimeLabel" type="Label" parent="ProjectVBoxContainer"]
 unique_name_in_owner = true
@@ -136,16 +154,24 @@ show_percentage = false
 
 [node name="HideAndShowButton" type="Button" parent="ProjectVBoxContainer"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_1akak")
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "显示/隐藏"
 focus_mode = 3
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_q3bha")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_1g725")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sitmp")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ve8gc")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_2yu64")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4aben")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
 icon = ExtResource("2_kbwm6")
 icon_alignment = 1
@@ -156,16 +182,36 @@ custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "增加番茄钟循环次数"
 focus_mode = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_kpklm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sitmp")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
 text = "+"
 
+[node name="SubTimerButton" type="Button" parent="ProjectVBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "减少番茄钟循环次数"
+focus_mode = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sitmp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1akak")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sitmp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_76nkv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_oeh08")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_torjw")
+text = "-"
+
 [connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
+[connection signal="child_exiting_tree" from="ProjectVBoxContainer" to="." method="_on_project_v_box_container_child_exiting_tree"]
 [connection signal="pressed" from="ProjectVBoxContainer/HideAndShowButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ProjectVBoxContainer/AddTimerButton" to="." method="_on_add_timer_button_pressed"]
+[connection signal="pressed" from="ProjectVBoxContainer/SubTimerButton" to="." method="_on_sub_timer_button_pressed"]
